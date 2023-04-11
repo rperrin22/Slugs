@@ -20,6 +20,7 @@ CAL = importdata(bw_inputfile,' ',6);
 %     4. Equillibrium start  - not sure yet what these are for
 %     5. Equillibrium end  - not sure yet what these are for
 
+% happy flag: 0-not happy with picks, 1-happy with picks
 happy = 0;
 
 while happy==0
@@ -34,31 +35,31 @@ while happy==0
 
     % get penetration start
     title('Pick penetration start!')
-    [x1,y1] = ginput(1);
+    [x1,~] = ginput(1);
     plot([x1,x1],ylims,'k:')
     ht1 = text(x1,ylims(1),'ps');
     set(ht1,'rotation',90);
 
     title('Pick penetration end!')
-    [x2,y2] = ginput(1);
+    [x2,~] = ginput(1);
     plot([x2,x2],ylims,'k:')
     ht2 = text(x2,ylims(1),'pe');
     set(ht2,'rotation',90);
 
     title('Pick heat pulse!')
-    [x3,y3] = ginput(1);
+    [x3,~] = ginput(1);
     plot([x3,x3],ylims,'k:')
     ht3 = text(x3,ylims(1),'hp');
     set(ht3,'rotation',90);
 
     title('Pick equillibrium start!')
-    [x4,y4] = ginput(1);
+    [x4,~] = ginput(1);
     plot([x4,x4],ylims,'k:')
     ht4 = text(x4,ylims(1),'es');
     set(ht4,'rotation',90);
 
     title('Pick equillibrium end!')
-    [x5,y5] = ginput(1);
+    [x5,~] = ginput(1);
     plot([x5,x5],ylims,'k:')
     ht5 = text(x5,ylims(1),'ee');
     set(ht5,'rotation',90);
@@ -103,13 +104,13 @@ while happy==0
 
     % get penetration start
     title('Pick penetration start!')
-    [xb1,yb1] = ginput(1);
+    [xb1,~] = ginput(1);
     plot([xb1,xb1],ylims,'k:')
     htb1 = text(xb1,ylims(1),'bws');
     set(htb1,'rotation',90);
 
     title('Pick penetration end!')
-    [xb2,yb2] = ginput(1);
+    [xb2,~] = ginput(1);
     plot([xb2,xb2],ylims,'k:')
     htb2 = text(xb2,ylims(1),'bwe');
     set(htb2,'rotation',90);
@@ -179,7 +180,7 @@ fprintf('Writing to %s...',fnout);
 % Calculate average bottom temperature for each probe during BW
 % calibration, and calculate the mean of BW temperature values to use for
 % reference.
-cal_ind=[s_cal:e_cal];
+cal_ind=s_cal:e_cal;
 cal_ind=cal_ind';
 cal_sub=CAL.data(cal_ind,2:6);
 
@@ -197,9 +198,9 @@ ie_pen = find(PEN.data(:,1)==e_pen,1);
 % End of penetration file will either be after dissipation of heat pulse,
 % or after dissipation of friction pulse, if no thermal conductivity
 if e_pen==0
-    pen_ind=[is_pen-5:ihp_pen];
+    pen_ind=is_pen-5:ihp_pen;
 else
-    pen_ind=[is_pen-5:ie_pen];
+    pen_ind=is_pen-5:ie_pen;
 end
 pen_ind=pen_ind';
 
